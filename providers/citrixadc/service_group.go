@@ -1,20 +1,40 @@
 package citrixadc
 
 import (
-	"fmt"
 	"log"
 	service "github.com/citrix/adc-nitro-go/service"
+	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
+
+var serviceGroupsAllowEmptyValues = []string{""}
+var serviceGroupsAdditionalFields = map[string]interface{}{}
 
 type ServiceGroupGenerator struct {
 	CitrixService
 }
 
 func (g *ServiceGroupGenerator) createServiceGroup(client *service.NitroClient) error {
-	sg, err := client.FindAllResources(service.Lbvserver.Type())
+	sg, err := client.FindAllResources(service.Servicegroup.Type())
 	if err != nil {
 		return err
 	}
+	for _, t := range sg {
+		log.Printf("appending " + t["servicegroupname"].(string) + "...............")
+		g.Resources = append(g.Resources, terraformutils.NewResource(
+			t["servicegroupname"].(string),
+			t["servicegroupname"].(string),
+			"citrixadc_servicegroup",
+			g.ProviderName,
+			map[string]string{
+				"servicetype":		t["servicetype"].(string),
+				"servicegroupname": t["servicegroupname"].(string),
+			},
+			// map[string]string{},
+			[]string{""},
+			map[string]interface{}{},
+		))
+	}
+
 	return nil
 }
 

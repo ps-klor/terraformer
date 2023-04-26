@@ -14,7 +14,7 @@
 package cmd
 
 import (
-	"log"
+	// "log"
 	"os"
 	citrixadc_terraforming "github.com/GoogleCloudPlatform/terraformer/providers/citrixadc"
 
@@ -30,7 +30,6 @@ func newCmdCitrixAdcImporter(options ImportOptions) *cobra.Command {
 		Long:  "Import current state to Terraform configuration from CitrixADC",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			endpoint := os.Getenv("NS_URL")
-			log.Println("Citrix ADC Endpoint: " + endpoint)
 			provider := newCitrixAdcProvider()
 			err := Import(provider, options, []string{endpoint})
 			if err != nil {

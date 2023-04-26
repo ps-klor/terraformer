@@ -3,9 +3,10 @@ package citrixadc
 import (
 	"errors"
 	"os"
-	"fmt"
+	// "fmt"
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 	"github.com/zclconf/go-cty/cty"
+	// "github.com/GoogleCloudPlatform/terraformer/terraformutils/providerwrapper"
 )
 
 type Provider struct {
@@ -57,15 +58,32 @@ func (p *Provider) InitService(serviceName string, verbose bool) error {
 }
 
 func (p *Provider) GetSupportedService() map[string]terraformutils.ServiceGenerator {
+	
+	// provider, err := providerwrapper.NewProviderWrapper(p.GetName(), cty.Value{}, false)
+	// resp := provider.GetSchema()
+	// fmt.Println("------------------------------------------ provider")
+	// //fmt.Println(resp)
+	// fmt.Println("------------------------------------------ provider")
+	// //fmt.Println(err)
+
 	return map[string]terraformutils.ServiceGenerator{
 		"service_group": &ServiceGroupGenerator{}, // TODO
+		"cs_policy": &CsPolicyGenerator{},
 	}
 }
 
-func (Provider) GetResourceConnections() map[string]map[string][]string {
+func (p Provider) GetResourceConnections() map[string]map[string][]string {
 	return map[string]map[string][]string{}
 }
 
-func (Provider) GetProviderData(_ ...string) map[string]interface{} {
-	return map[string]interface{}{}
+func (p Provider) GetProviderData(_ ...string) map[string]interface{} {
+	return map[string]interface{}{
+		"provider": map[string]interface{}{
+			p.GetName(): map[string]interface{}{
+				"username": p.username,
+				"password": p.password,
+				"endpoint": p.endpoint,
+			},
+		},
+	}
 }

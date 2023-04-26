@@ -17,5 +17,6 @@ func (s *CitrixService) createClient() (*service.NitroClient, error) {
 		log.Fatal("Could not create a client: ", err)
 		return nil, fmt.Errorf("unable to initialize Citrix client: %v", err)
 	}
+	client.Login()
 	return client, nil
 }
