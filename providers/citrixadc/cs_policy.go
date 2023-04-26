@@ -2,7 +2,6 @@ package citrixadc
 
 import (
 	"log"
-	"fmt"
 	service "github.com/citrix/adc-nitro-go/service"
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
@@ -17,13 +16,14 @@ func (g *CsPolicyGenerator) createCsPolicy(client *service.NitroClient) error {
 		return err
 	}
 	for _, t := range cp {
+		policy := t["policyname"].(string)
 		g.Resources = append(g.Resources, terraformutils.NewResource(
-			t["policyname"].(string),
-			t["policyname"].(string),
+			policy,
+			policy,
 			"citrixadc_cspolicy",
 			g.ProviderName,
 			map[string]string{
-				"policyname": t["policyname"].(string),
+				"policyname": policy,
 			},
 			[]string{""},
 			map[string]interface{}{},

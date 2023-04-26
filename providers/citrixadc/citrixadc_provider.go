@@ -14,6 +14,7 @@ type Provider struct {
 	username string
 	password string
 	endpoint string
+	insecureSkipVerify bool
 }
 
 func (p *Provider) Init(args []string) error {
@@ -26,6 +27,9 @@ func (p *Provider) Init(args []string) error {
 	if endpoint := os.Getenv("NS_URL"); endpoint != "" {
 		p.endpoint = os.Getenv("NS_URL")
 	}
+	if sslVerify := os.Getenv("NS_SSLVERIFY"); sslVerify != "" {
+		p.insecureSkipVerify = (sslVerify == "false")
+	}
 	return nil
 }
 
@@ -34,6 +38,7 @@ func (p *Provider) GetConfig() cty.Value {
 		"username": cty.StringVal(p.username),
 		"password": cty.StringVal(p.password),
 		"endpoint": cty.StringVal(p.endpoint),
+		"insecure_skip_verify": cty.BoolVal(p.insecureSkipVerify),
 	})
 }
 
