@@ -3,10 +3,8 @@ package citrixadc
 import (
 	"errors"
 	"os"
-	// "fmt"
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 	"github.com/zclconf/go-cty/cty"
-	// "github.com/GoogleCloudPlatform/terraformer/terraformutils/providerwrapper"
 )
 
 type Provider struct {
@@ -63,16 +61,8 @@ func (p *Provider) InitService(serviceName string, verbose bool) error {
 }
 
 func (p *Provider) GetSupportedService() map[string]terraformutils.ServiceGenerator {
-	
-	// provider, err := providerwrapper.NewProviderWrapper(p.GetName(), cty.Value{}, false)
-	// resp := provider.GetSchema()
-	// fmt.Println("------------------------------------------ provider")
-	// //fmt.Println(resp)
-	// fmt.Println("------------------------------------------ provider")
-	// //fmt.Println(err)
-
 	return map[string]terraformutils.ServiceGenerator{
-		"service_group": &ServiceGroupGenerator{}, // TODO
+		"service_group": &ServiceGroupGenerator{},
 		"cs_policy": &CsPolicyGenerator{},
 	}
 }

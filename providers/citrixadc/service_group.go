@@ -19,7 +19,6 @@ func (g *ServiceGroupGenerator) createServiceGroup(client *service.NitroClient) 
 		return err
 	}
 	for _, t := range sg {
-		log.Printf("appending " + t["servicegroupname"].(string) + "...............")
 		g.Resources = append(g.Resources, terraformutils.NewResource(
 			t["servicegroupname"].(string),
 			t["servicegroupname"].(string),
