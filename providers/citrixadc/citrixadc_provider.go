@@ -65,7 +65,12 @@ func (p *Provider) GetSupportedService() map[string]terraformutils.ServiceGenera
 		"service_group": &ServiceGroupGenerator{},
 		"cs_policy": &CsPolicyGenerator{},
 		"lb_monitor": &LbMonitorGenerator{},
-		"lb_monitor_service_group_binding": &LbMonitorServiceGroupBindingGenerator{},
+		"servicegroup_lbmonitor_binding": &ServiceGroupLbMonitorBindingGenerator{},
+		"server": &ServerGenerator{},
+		"servicegroup_servicegroupmember_binding": &ServiceGroupServiceGroupMemberBindingGenerator{},
+		"lbv_server": &LbvServerGenerator{},
+		"rewrite_policy": &RewritePolicyGenerator{},
+		"lbvserver_rewritepolicy_binding": &LbserverRewritePolicyBindingGenerator{},
 	}
 }
 
@@ -74,13 +79,5 @@ func (p Provider) GetResourceConnections() map[string]map[string][]string {
 }
 
 func (p Provider) GetProviderData(_ ...string) map[string]interface{} {
-	return map[string]interface{}{
-		// "provider": map[string]interface{}{
-		// 	p.GetName(): map[string]interface{}{
-		// 		"username": p.username,
-		// 		"password": p.password,
-		// 		"endpoint": p.endpoint,
-		// 	},
-		// },
-	}
+	return map[string]interface{}{}
 }

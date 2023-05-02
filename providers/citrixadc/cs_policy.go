@@ -19,7 +19,7 @@ func (g *CsPolicyGenerator) createCsPolicy(client *service.NitroClient) error {
 		policy := t["policyname"].(string)
 		g.Resources = append(g.Resources, terraformutils.NewResource(
 			policy,
-			policy,
+			normalizeResourceName(policy),
 			"citrixadc_cspolicy",
 			g.ProviderName,
 			map[string]string{

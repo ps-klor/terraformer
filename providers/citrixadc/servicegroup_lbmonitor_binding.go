@@ -7,11 +7,11 @@ import (
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
 
-type LbMonitorServiceGroupBindingGenerator struct {
+type ServiceGroupLbMonitorBindingGenerator struct {
 	CitrixService
 }
 
-func (g *LbMonitorServiceGroupBindingGenerator) createLbMonitorServiceGroupBinding(client *service.NitroClient) error {
+func (g *ServiceGroupLbMonitorBindingGenerator) createServiceGroupLbMonitorBinding(client *service.NitroClient) error {
 	serviceGroups, err := client.FindAllResources(service.Servicegroup.Type())
 	if err != nil {
 		return err
@@ -55,13 +55,13 @@ func (g *LbMonitorServiceGroupBindingGenerator) createLbMonitorServiceGroupBindi
 	return nil
 }
 
-func (g *LbMonitorServiceGroupBindingGenerator) InitResources() error {
-	log.Printf("creating lb_monitor_service_group_binding")
+func (g *ServiceGroupLbMonitorBindingGenerator) InitResources() error {
+	log.Printf("creating servicegroup_lbmonitor_binding")
 	client, err := g.createClient()
 	if err != nil {
 		return err
 	}
-	if err := g.createLbMonitorServiceGroupBinding(client); err != nil {
+	if err := g.createServiceGroupLbMonitorBinding(client); err != nil {
 		return err
 	}
 	return nil

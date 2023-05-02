@@ -21,7 +21,7 @@ func (g *ServiceGroupGenerator) createServiceGroup(client *service.NitroClient) 
 	for _, t := range sg {
 		g.Resources = append(g.Resources, terraformutils.NewResource(
 			t["servicegroupname"].(string),
-			t["servicegroupname"].(string),
+			normalizeResourceName(t["servicegroupname"].(string)),
 			"citrixadc_servicegroup",
 			g.ProviderName,
 			map[string]string{

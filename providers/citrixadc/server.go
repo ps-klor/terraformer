@@ -6,21 +6,21 @@ import (
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
 
-type LbMonitorGenerator struct {
+type ServerGenerator struct {
 	CitrixService
 }
 
-func (g *LbMonitorGenerator) createLbMonitor(client *service.NitroClient) error {
-	sg, err := client.FindAllResources(service.Lbmonitor.Type())
+func (g *ServerGenerator) createServer(client *service.NitroClient) error {
+	server, err := client.FindAllResources(service.Server.Type())
 	if err != nil {
 		return err
 	}
-	for _, t := range sg {
-		monitorname := t["monitorname"].(string)
+	for _, t := range server {
+		name := t["name"].(string)
 		g.Resources = append(g.Resources, terraformutils.NewResource(
-			monitorname,
-			normalizeResourceName(monitorname),
-			"citrixadc_lbmonitor",
+			name,
+			normalizeResourceName(name),
+			"citrixadc_server",
 			g.ProviderName,
 			map[string]string{},
 			[]string{""},
@@ -31,13 +31,13 @@ func (g *LbMonitorGenerator) createLbMonitor(client *service.NitroClient) error 
 	return nil
 }
 
-func (g *LbMonitorGenerator) InitResources() error {
-	log.Printf("creating lb_monitor")
+func (g *ServerGenerator) InitResources() error {
+	log.Printf("creating server")
 	client, err := g.createClient()
 	if err != nil {
 		return err
 	}
-	if err := g.createLbMonitor(client); err != nil {
+	if err := g.createServer(client); err != nil {
 		return err
 	}
 	return nil
