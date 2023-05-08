@@ -62,19 +62,23 @@ func (p *Provider) InitService(serviceName string, verbose bool) error {
 
 func (p *Provider) GetSupportedService() map[string]terraformutils.ServiceGenerator {
 	return map[string]terraformutils.ServiceGenerator{
-		"service_group": &ServiceGroupGenerator{},
-		"cs_policy": &CsPolicyGenerator{},
-		"lb_monitor": &LbMonitorGenerator{},
+		"servicegroup": &ServiceGroupGenerator{},
+		"cspolicy": &CsPolicyGenerator{},
+		"lbmonitor": &LbMonitorGenerator{},
 		"servicegroup_lbmonitor_binding": &ServiceGroupLbMonitorBindingGenerator{},
 		"server": &ServerGenerator{},
 		"servicegroup_servicegroupmember_binding": &ServiceGroupServiceGroupMemberBindingGenerator{},
-		"lb_vserver": &LbvServerGenerator{},
-		"rewrite_policy": &RewritePolicyGenerator{},
+		"lbvserver": &LbvServerGenerator{},
+		"rewritepolicy": &RewritePolicyGenerator{},
 		"lbvserver_rewritepolicy_binding": &LbserverRewritePolicyBindingGenerator{},
 		"service": &ServiceGenerator{},
 		"lbvserver_service_binding": &LbserverServiceBindingGenerator{},
-		"cs_vserver": &CsvServereGenerator{},
+		"csvserver": &CsvServereGenerator{},
 		"csvserver_cspolicy_binding": &CsvServerCsPolicyBindingGenerator{},
+		"responderpolicy": &ResponderPolicyGenerator{},
+		"lbvserver_responderpolicy_binding": &LbserverResponderPolicyBindingGenerator{},
+		"lbvserver_servicegroup_binding": &LbserverServiceGroupBindingGenerator{},
+		"sslcipher": &SslCipherGenerator{},
 	}
 }
 

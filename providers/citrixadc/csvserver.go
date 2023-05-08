@@ -1,26 +1,25 @@
 package citrixadc
 
 import (
-	"log"
 	service "github.com/citrix/adc-nitro-go/service"
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
 
-type RewritePolicyGenerator struct {
+type CsvServereGenerator struct {
 	CitrixService
 }
 
-func (g *RewritePolicyGenerator) createRewritePolicy(client *service.NitroClient) error {
-	server, err := client.FindAllResources(service.Rewritepolicy.Type())
+func (g *CsvServereGenerator) createCsvServer(client *service.NitroClient) error {
+	cs, err := client.FindAllResources(service.Csvserver.Type())
 	if err != nil {
 		return err
 	}
-	for _, t := range server {
+	for _, t := range cs {
 		name := t["name"].(string)
 		g.Resources = append(g.Resources, terraformutils.NewResource(
 			name,
 			normalizeResourceName(name),
-			"citrixadc_rewritepolicy",
+			"citrixadc_csvserver",
 			g.ProviderName,
 			map[string]string{},
 			[]string{""},
@@ -30,12 +29,12 @@ func (g *RewritePolicyGenerator) createRewritePolicy(client *service.NitroClient
 	return nil
 }
 
-func (g *RewritePolicyGenerator) InitResources() error {
+func (g *CsvServereGenerator) InitResources() error {
 	client, err := g.createClient()
 	if err != nil {
 		return err
 	}
-	if err := g.createRewritePolicy(client); err != nil {
+	if err := g.createCsvServer(client); err != nil {
 		return err
 	}
 	return nil

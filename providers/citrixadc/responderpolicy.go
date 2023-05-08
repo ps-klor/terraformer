@@ -5,21 +5,21 @@ import (
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
 
-type ServiceGenerator struct {
+type ResponderPolicyGenerator struct {
 	CitrixService
 }
 
-func (g *ServiceGenerator) createService(client *service.NitroClient) error {
-	services, err := client.FindAllResources(service.Service.Type())
+func (g *ResponderPolicyGenerator) createResponderPolicy(client *service.NitroClient) error {
+	server, err := client.FindAllResources(service.Responderpolicy.Type())
 	if err != nil {
 		return err
 	}
-	for _, t := range services {
+	for _, t := range server {
 		name := t["name"].(string)
 		g.Resources = append(g.Resources, terraformutils.NewResource(
 			name,
 			normalizeResourceName(name),
-			"citrixadc_service",
+			"citrixadc_responderpolicy",
 			g.ProviderName,
 			map[string]string{},
 			[]string{""},
@@ -29,12 +29,12 @@ func (g *ServiceGenerator) createService(client *service.NitroClient) error {
 	return nil
 }
 
-func (g *ServiceGenerator) InitResources() error {
+func (g *ResponderPolicyGenerator) InitResources() error {
 	client, err := g.createClient()
 	if err != nil {
 		return err
 	}
-	if err := g.createService(client); err != nil {
+	if err := g.createResponderPolicy(client); err != nil {
 		return err
 	}
 	return nil

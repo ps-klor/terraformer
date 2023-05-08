@@ -1,7 +1,6 @@
 package citrixadc
 
 import (
-	"log"
 	service "github.com/citrix/adc-nitro-go/service"
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )

@@ -14,10 +14,8 @@
 package cmd
 
 import (
-	// "log"
 	"os"
 	citrixadc_terraforming "github.com/GoogleCloudPlatform/terraformer/providers/citrixadc"
-
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 	"github.com/spf13/cobra"
 )
@@ -42,7 +40,6 @@ func newCmdCitrixAdcImporter(options ImportOptions) *cobra.Command {
 	cmd.AddCommand(listCmd(newCitrixAdcProvider()))
 	cmd.PersistentFlags().StringVarP(&endpoint, "endpoint", "e", "", "env param NS_URL")
 	baseProviderFlags(cmd.PersistentFlags(), &options, "", "")
-
 	return cmd
 }
 
