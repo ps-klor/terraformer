@@ -50,7 +50,6 @@ func (g *CsvServerCsPolicyBindingGenerator) createLbserverRewritePolicyBindingGe
 }
 
 func (g *CsvServerCsPolicyBindingGenerator) InitResources() error {
-	log.Printf("creating csvserver_cspolicy_binding")
 	client, err := g.createClient()
 	if err != nil {
 		return err

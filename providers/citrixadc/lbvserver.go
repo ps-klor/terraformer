@@ -1,7 +1,6 @@
 package citrixadc
 
 import (
-	"log"
 	service "github.com/citrix/adc-nitro-go/service"
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
@@ -31,7 +30,6 @@ func (g *LbvServerGenerator) createLbvServer(client *service.NitroClient) error 
 }
 
 func (g *LbvServerGenerator) InitResources() error {
-	log.Printf("creating lbv_server")
 	client, err := g.createClient()
 	if err != nil {
 		return err
